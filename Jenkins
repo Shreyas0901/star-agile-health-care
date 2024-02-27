@@ -30,12 +30,13 @@ pipeline{
         }
         stage('run dockerfile'){
           steps{
-               sh'docker rmi myimg'
+               sh 'docker rmi myimg'
                sh 'docker build -t myimg .'
            }
          }
         stage('port expose'){
             steps{
+                sh 'dockr stop c000'
                 sh 'docker rm c000'
                 sh 'docker run -dt -p 8081:8081 --name c000 myimg'
             }
